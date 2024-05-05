@@ -6,12 +6,18 @@
 <body>
 <h1>Pizzeria</h1><hr>
 <h4>Меню пиццерии</h4>
+<form action="/" method="get">
+    Поиск пиццы: <input type="text" name="title"><br>
+    <input type="submit" value="Поиск"/>
+</form>
 <#list products as product>
     <div>
         <p><b></b>${product.title}</p>
         <p>${product.price}</p>
         <p><a href="/product/${product.id}">Подробнее...</a></p>
     </div>
+    <#else>
+    <h3>Нет такой пиццы</h3>
 </#list>
 <hr>
 <h3>Добавить пиццу в меню</h3>
