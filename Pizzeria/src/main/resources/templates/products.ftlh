@@ -4,6 +4,22 @@
     <title>Pizzeria</title>
 </head>
 <body>
-Hello user
+<h1>Pizzeria</h1><hr>
+<h4>Меню пиццерии</h4>
+<#list products as product>
+    <div>
+        <p><b></b>${product.title}</p>
+        <p>${product.price}</p>
+        <p><a href="/product/${product.id}">Подробнее...</a></p>
+    </div>
+</#list>
+<hr>
+<h3>Добавить пиццу в меню</h3>
+<form action="/product/create" method="post">
+    Название пиццы: <input type="text" name="title"/><br><br>
+    Описание пиццы: <input type="text" name="description"/><br><br>
+    Цена: <input type="number" name="price"/><br><br>
+    <input type="submit" value="Добавить товар"/>
+</form>
 </body>
 </html>
