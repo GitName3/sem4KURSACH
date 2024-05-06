@@ -12,19 +12,20 @@
 </form>
 <#list products as product>
     <div>
-        <p><b></b>${product.title}</p>
-        <p>${product.price}</p>
-        <p><a href="/product/${product.id}">Подробнее...</a></p>
+        <p><b>${product.title}</b> ${product.price} руб | <a href="/product/${product.id}">Подробнее...</a></p>
     </div>
     <#else>
     <h3>Нет такой пиццы</h3>
 </#list>
 <hr>
 <h3>Добавить пиццу в меню</h3>
-<form action="/product/create" method="post">
+<form action="/product/create" method="post" enctype="multipart/form-data">
     Название пиццы: <input type="text" name="title"/><br><br>
     Описание пиццы: <input type="text" name="description"/><br><br>
     Цена: <input type="number" name="price"/><br><br>
+    Первая фотография: <input type="file" name="file1"/><br><br>
+    Вторая фотография: <input type="file" name="file2"/><br><br>
+    Третья фотография: <input type="file" name="file3"/><br><br>
     <input type="submit" value="Добавить товар"/>
 </form>
 </body>
