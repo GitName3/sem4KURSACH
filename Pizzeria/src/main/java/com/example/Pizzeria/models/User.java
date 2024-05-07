@@ -7,9 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -45,6 +43,9 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     private LocalDateTime dateOfCreation;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Product> products = new ArrayList<>();
     @PrePersist
     private void init(){
         dateOfCreation = LocalDateTime.now();
