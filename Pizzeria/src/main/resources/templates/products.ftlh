@@ -4,8 +4,12 @@
     <title>Pizzeria</title>
 </head>
 <body>
-<h1>Pizzeria</h1><hr>
+<h1>Pizzeria | <a href="/login">Войти</a></h1><hr>
 <h4>Меню пиццерии</h4>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="Выйти"/>
+</form>
 <form action="/" method="get">
     Поиск пиццы: <input type="text" name="title"><br>
     <input type="submit" value="Поиск"/>
