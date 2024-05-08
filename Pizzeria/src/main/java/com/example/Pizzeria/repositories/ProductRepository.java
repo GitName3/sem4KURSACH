@@ -2,8 +2,10 @@ package com.example.Pizzeria.repositories;
 
 import com.example.Pizzeria.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+@Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByTitle(String title);

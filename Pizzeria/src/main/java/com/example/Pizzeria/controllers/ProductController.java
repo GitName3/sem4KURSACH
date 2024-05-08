@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.Principal;
 
 @Controller
+@Transactional
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
