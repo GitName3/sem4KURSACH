@@ -1,6 +1,7 @@
 package com.example.Pizzeria.controllers;
 
 import com.example.Pizzeria.models.Product;
+import com.example.Pizzeria.services.CartService;
 import com.example.Pizzeria.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final CartService cartService;
 
     @GetMapping("/")
     public String products(@RequestParam(name="title", required = false) String title,
@@ -52,4 +54,6 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/";
     }
+
+
 }

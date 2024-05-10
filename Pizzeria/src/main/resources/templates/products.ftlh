@@ -18,6 +18,7 @@
     <a href="/login">Войти</a>
 </#if>
 <hr>
+<h2><a href="/cart">Корзина</a></h2>
 <h4>Меню пиццерии</h4>
 <form action="/" method="get">
     Поиск пиццы: <input type="text" name="title"><br>
@@ -26,6 +27,16 @@
 <#list products as product>
     <div>
         <p><b>${product.title}</b> ${product.price} руб | <a href="/product/${product.id}">Подробнее...</a></p>
+        <form action="/cart/add" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <input type="hidden" name="productId" value="${product.id}">
+            <input type="submit" value="Добавить в корзину"/>
+        </form>
+        <form action="/cart/delete" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <input type="hidden" name="productId" value="${product.id}">
+            <input type="submit" value="Убрать из корзины"/>
+        </form>
     </div>
     <#else>
     <h3>Нет такой пиццы</h3>
