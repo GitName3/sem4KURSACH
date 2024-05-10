@@ -23,20 +23,22 @@ import java.security.Principal;
 public class ProductController {
     private final ProductService productService;
 
+
     @GetMapping("/")
-    public String products(@RequestParam(name="title", required = false) String title,
+    public String products(@RequestParam(name="searchWord", required = false) String title,
                            Principal principal, Model model){
         model.addAttribute("products", productService.listProducts(title));
         model.addAttribute("user", productService.getUserByPrincipal(principal));
+        model.addAttribute("searchWord", title);
         return "products";
     }
 
     @GetMapping("/product/{id}")
-    public String productInfo(@PathVariable Long id, Model model) {
+    public String productInfo(@PathVariable Long id, Model model, Principal principal) {
         Product product = productService.getProductbyId(id);
         model.addAttribute("product", product);
         model.addAttribute("images", product.getImages());
-
+        model.addAttribute("user", productService.getUserByPrincipal(principal));
         return "product-info";
     }
 

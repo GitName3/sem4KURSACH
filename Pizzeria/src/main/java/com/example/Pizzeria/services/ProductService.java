@@ -3,6 +3,7 @@ package com.example.Pizzeria.services;
 import com.example.Pizzeria.models.Image;
 import com.example.Pizzeria.models.Product;
 import com.example.Pizzeria.models.User;
+import com.example.Pizzeria.repositories.ImageRepository;
 import com.example.Pizzeria.repositories.ProductRepository;
 import com.example.Pizzeria.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
 
     public List<Product> listProducts(String title) {
-        if (title != null) return productRepository.findByTitle(title);
+        if (title != null && !title.isEmpty()) return productRepository.findByTitle(title);
         return productRepository.findAll();
     }
 
@@ -72,10 +74,15 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
+        imageRepository.deleteAllById(getImagesByProductId(id).stream().map(Image::getId).toList());
         productRepository.deleteById(id);
     }
 
     public Product getProductbyId(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public List<Image> getImagesByProductId(Long productId) {
+        return imageRepository.findAllByProductId(productId);
     }
 }

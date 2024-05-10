@@ -37,13 +37,14 @@ public class CartService {
     }
 
     public void deleteCart(Principal principal, Long id) {
-        if (cartRepository.findByProduct(getProductById(id)) != null) {
-            if (cartRepository.findByProduct(getProductById(id)).get(0).getCount() > 1) {
-                Cart cart = cartRepository.findByProduct(getProductById(id)).get(0);
+        List<Cart> carts = cartRepository.findByProduct(getProductById(id));
+        if (carts != null && !carts.isEmpty()) {
+            Cart cart = carts.get(0);
+            if (cart.getCount() > 1) {
                 cart.setCount(cart.getCount() - 1);
                 cartRepository.save(cart);
-            }else{
-                cartRepository.delete(cartRepository.findByProduct(getProductById(id)).get(0));
+            } else {
+                cartRepository.delete(cart);
             }
         }
     }
