@@ -1,5 +1,6 @@
 package com.example.Pizzeria.controllers;
 
+import com.example.Pizzeria.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import com.example.Pizzeria.services.CartService;
@@ -16,6 +17,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
+    private final OrderService orderService;
 
     @GetMapping("/cart")
     public String cart(Principal principal, Model model) {
@@ -32,6 +34,13 @@ public class CartController {
     @PostMapping("/cart/delete")
     public String deleteFromCart(@RequestParam(name="productId") Long productId, Principal principal) {
         cartService.deleteCart(principal, productId);
+        return "redirect:/";
+    }
+
+    @PostMapping("/cart/makeOrder")
+    public String makeOrder(@RequestParam(name="items") String items, Principal principal) {
+        orderService.saveOrder(principal, items);
+        cartService.deleteAllCarts(principal);
         return "redirect:/";
     }
 }

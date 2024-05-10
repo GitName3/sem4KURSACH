@@ -55,5 +55,8 @@
         <input type="submit" value="Добавить товар"/>
     </form>
 </#if>
+<#--<#list orders as order>-->
+<#--    <p>${order.items}</p>-->
+<#--</#list>-->
 </body>
 </html>

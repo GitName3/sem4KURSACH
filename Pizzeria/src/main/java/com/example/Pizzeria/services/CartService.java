@@ -20,6 +20,7 @@ public class CartService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
+
     public void saveCart(Principal principal, Long id) {
         if (cartRepository.findByProduct(getProductById(id)).isEmpty()) {
             Cart cart1 = new Cart();
@@ -56,13 +57,12 @@ public class CartService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public User getCartByUser(Principal principal) {
-        return userRepository.findById(getUserByPrincipal(principal).getId()).orElse(null);
-    }
-
     public List<Cart> getCartsByUser(Principal principal){
         if (principal == null) return new ArrayList<>();
         return cartRepository.findByUser(getUserByPrincipal(principal));
+    }
 
+    public void deleteAllCarts(Principal principal) {
+        cartRepository.deleteByUser(getUserByPrincipal(principal));
     }
 }

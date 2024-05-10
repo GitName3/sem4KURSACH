@@ -19,5 +19,8 @@
 <#if errorMessage??>
     <h2 style="color: red">${errorMessage}</h2>
 </#if>
+<#list orders as order>
+    <p>${order.items}</p>
+</#list>
 </body>
 </html>

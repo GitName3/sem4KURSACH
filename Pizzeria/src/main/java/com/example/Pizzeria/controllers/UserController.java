@@ -4,6 +4,7 @@ import com.example.Pizzeria.models.User;
 import com.example.Pizzeria.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
+@Transactional
 public class UserController {
 
     private final UserService userService;
@@ -36,6 +38,7 @@ public class UserController {
     public String userInfo(@PathVariable("user") User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("products", user.getProducts());
+        model.addAttribute("orders", user.getOrders());
         return "user-info";
     }
 

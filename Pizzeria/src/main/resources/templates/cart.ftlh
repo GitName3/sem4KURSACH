@@ -13,8 +13,21 @@
         <#assign totalPrice = totalPrice + (cart.product.price * cart.count)>
     </div>
 <#else>
-    <h3>Корзина пуста</h3>
+    <h3>Нет такой пиццы</h3>
 </#list>
 <p>Общая сумма: ${totalPrice} руб</p>
+
+<!-- Дополнительная строка -->
+<#assign items = ["Общая сумма: ${totalPrice} руб"]>
+<#list carts as cart>
+    <#assign items = items + ["${cart.count} ${cart.product.title}"]>
+</#list>
+${items?join(", ")}
+<#assign itemsAsString = items?join(", ")>
+<form action="/cart/makeOrder" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="hidden" name="items" value="${itemsAsString}">
+    <input type="submit" value="Оформить заказ"/>
+</form>
 </body>
 </html>
