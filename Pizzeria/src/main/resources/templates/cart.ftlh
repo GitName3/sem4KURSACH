@@ -103,10 +103,17 @@
     </div>
     <p class="total-price">Общая сумма: ${totalPrice} руб</p>
 
+    <#assign items = ["Общая сумма: ${totalPrice} руб"]>
+    <#list carts as cart>
+        <#assign items = items + ["${cart.count} ${cart.product.title}"]>
+    </#list>
+    ${items?join(", ")}
+    <#assign itemsAsString = items?join(", ")>
+
     <!-- Форма оформления заказа -->
     <form action="/cart/makeOrder" method="post">
 <#--        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
-        <input type="hidden" name="totalPrice" value="${totalPrice}">
+        <input type="hidden" name="items" value="${itemsAsString}">
         <input type="submit" value="Оформить заказ">
     </form>
 </div>
