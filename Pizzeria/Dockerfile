@@ -16,7 +16,7 @@ ENV PORT=8080
 
 COPY --from=build /app/target/*.jar /app/app.jar
 
-COPY ./src/main/resources/migrations/*.sql /app/migrations/
+COPY ./src/main/resources/*.sql /app/
 
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/pizzeria
 ENV SPRING_DATASOURCE_USERNAME=postgres
