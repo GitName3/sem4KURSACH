@@ -59,5 +59,4 @@ public class SecurityConfig{
         auth.userDetailsService(customUserDetailsService);
     }
 
-
 }
